@@ -1,6 +1,6 @@
 # wasmtime-bench
 
-Simple benchmarks of [wasmtime] vs native.
+Simple benchmarks of [wasmtime] (JIT) vs native.
 
 [wasmtime]: https://wasmtime.dev
 
@@ -31,7 +31,7 @@ where `--n` is the number of repetitions.
 
 ## Adding new samples
 
-All samples are in their source format in [`samples/`] directory. If you add a new sample,
+All samples are in their source format in [samples/] directory. If you add a new sample,
 make sure you run `cargo clean` before rebuilding/rerunning again.
 
 [samples/]: https://github.com/kubkon/wasmtime-bench/tree/master/samples
@@ -64,3 +64,16 @@ Source file: [samples/fib_loop.rs]
 | Wasmtime | 38.02 +/- 3.32 ms |
 
 [samples/fib_loop.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/fib_loop.rs
+
+### Mandelbrot
+Adapted from [The Computer Language Benchmarks Game].
+
+Source file: [samples/mandelbrot.rs]
+
+|          |                       |
+| -------- | --------------------- |
+| Native   | 7583.67 +/- 367.85 ms |
+| Wasmtime | 38.02 +/- 3.32 ms     |
+
+[The Computer Language Benchmarks Game]: https://benchmarksgame-team.pages.debian.net/benchmarksgame/program/mandelbrot-rust-6.html
+[samples/mandelbrot.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/mandelbrot.rs
