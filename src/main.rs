@@ -3,9 +3,10 @@ use std::process::{Command, Stdio};
 use std::time::SystemTime;
 use structopt::StructOpt;
 
+/// Simple wasmtime vs native benchmarks.
 #[derive(StructOpt)]
 struct Opt {
-    /// Number of repetitions
+    /// Number of repetitions (defaults to 100).
     #[structopt(short, long)]
     n: Option<u64>,
 }
@@ -23,14 +24,15 @@ fn main() {
             .expect("valid Unicode");
         let ext = path.extension().map(|x| x.to_str().expect("valid Unicode"));
         let path = path.to_str().expect("valid Unicode");
-        println!("Timing {}", file_name);
         let (m, s) = if let Some(ext) = ext {
             if ext == "wasm" {
+                println!("Timing '{}'", file_name);
                 timeit(wasmtime_cmd(&path), &opt.n)
             } else {
                 panic!("unexpected file extension {}", ext);
             }
         } else {
+            println!("Timing '{}'", file_name);
             timeit(native_cmd(&path), &opt.n)
         };
         println!("\t{} +/- {} ms", m, s);
@@ -43,20 +45,20 @@ fn wasmtime_cmd(path: &str) -> Command {
     cmd.arg("--disable-cache")
         .arg("-O")
         .arg(path)
-        .stdout(Stdio::inherit())
+        .stdout(Stdio::null())
         .stderr(Stdio::inherit());
     cmd
 }
 
 fn native_cmd(path: &str) -> Command {
     let mut cmd = Command::new(path);
-    cmd.stdout(Stdio::inherit()).stderr(Stdio::inherit());
+    cmd.stdout(Stdio::null()).stderr(Stdio::inherit());
     cmd
 }
 
 fn timeit(mut cmd: Command, repetitions: &Option<u64>) -> (f64, f64) {
     let mut timings = vec![];
-    let repetitions = repetitions.unwrap_or(1000);
+    let repetitions = repetitions.unwrap_or(100);
     for _ in 0..repetitions {
         let t1 = SystemTime::now();
         let _output = cmd.status().expect("command successful");
