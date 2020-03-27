@@ -1,10 +1,5 @@
 fn main() {
-    std::process::exit(run() as i32);
-}
-
-#[no_mangle]
-pub extern "C" fn run() -> u32 {
-    fib(35)
+    std::process::exit(fib(43) as i32);
 }
 
 fn fib(n: u32) -> u32 {

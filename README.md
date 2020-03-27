@@ -21,6 +21,14 @@ this [link].
 
 [link]: https://github.com/bytecodealliance/wasmtime/releases
 
+Afterwards, to build and run the benchmarks
+
+```
+cargo run --release -- --n 100
+```
+
+where `--n` is the number of repetitions.
+
 ## Adding new samples
 
 All samples are in their source format in [`samples/`] directory. If you add a new sample,
@@ -30,39 +38,29 @@ make sure you run `cargo clean` before rebuilding/rerunning again.
 
 ## Some results
 
-All results are after re-running each binary 1000 times. For `wasmtime`, we invoke the binary
+All results are after re-running each binary 200 times. For `wasmtime`, we invoke the binary
 with `--disable-cache` and `-O` flags.
 
 A note of caution, in all presented results, the dispersion is expressed in terms of the
 standard deviation which is probably not accurate but should give at least an idea of
 how wildly the values differed between each other.
 
-### Fibonnacci
-Source file: [samples/fib.rs]
+### Fibonacci with recursive calls
+Source file: [samples/fib_func.rs]
+
+|          |                      |
+| -------- | -------------------- |
+| Native   | 1309.12 +/-  8.55 ms |
+| Wasmtime | 2649.92 +/- 36.71 ms |
+
+[samples/fib_func.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/fib_func.rs
+
+### Fibonacci with loops
+Source file: [samples/fib_loop.rs]
 
 |          |                   |
 | -------- | ----------------- |
-| Native   | 30.65 +/- 3.50 ms |
-| Wasmtime | 94.81 +/- 7.28 ms |
+| Native   | 4.93 +/- 42.52 ms |
+| Wasmtime | 38.02 +/- 3.32 ms |
 
-[samples/fib.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/fib.rs
-
-### Print to screen in a loop
-Source file: [samples/print.rs]
-
-|          |                   |
-| -------- | ----------------- |
-| Native   | 9.10 +/- 0.75 ms  |
-| Wasmtime | 62.74 +/- 6.01 ms |
-
-[samples/print.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/print.rs
-
-### Print "Hello world!" to screen
-Source file: [samples/hello.rs]
-
-|          |                   |
-| -------- | ----------------- |
-| Native   | 1.97 +/- 0.44 ms  |
-| Wasmtime | 46.54 +/- 7.74 ms |
-
-[samples/hello.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/hello.rs
+[samples/fib_loop.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/fib_loop.rs

@@ -1,3 +1,4 @@
+use indicatif::ProgressIterator;
 use std::fs;
 use std::process::{Command, Stdio};
 use std::time::SystemTime;
@@ -59,7 +60,7 @@ fn native_cmd(path: &str) -> Command {
 fn timeit(mut cmd: Command, repetitions: &Option<u64>) -> (f64, f64) {
     let mut timings = vec![];
     let repetitions = repetitions.unwrap_or(100);
-    for _ in 0..repetitions {
+    for _ in (0..repetitions).progress() {
         let t1 = SystemTime::now();
         let _output = cmd.status().expect("command successful");
         let duration = t1.elapsed().expect("monotonic time");

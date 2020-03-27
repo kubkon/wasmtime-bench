@@ -5,4 +5,5 @@ authors = ["Jakub Konka <jakub.konka@golem.network>"]
 edition = "2018"
 
 [dependencies]
-structopt = "0.3.12"
+structopt = "0.3"
+indicatif = "0.14"
