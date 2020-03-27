@@ -38,7 +38,7 @@ make sure you run `cargo clean` before rebuilding/rerunning again.
 
 ## Some results
 
-All results are after re-running each binary 200 times. For `wasmtime`, we invoke the binary
+All results are after re-running each binary 100 times. For `wasmtime`, we invoke the binary
 with `--disable-cache` and `-O` flags.
 
 A note of caution, in all presented results, the dispersion is expressed in terms of the
@@ -48,10 +48,10 @@ how wildly the values differed between each other.
 ### Fibonacci with recursive calls
 Source file: [samples/fib_func.rs]
 
-|          |                      |
-| -------- | -------------------- |
-| Native   | 1309.12 +/-  8.55 ms |
-| Wasmtime | 2649.92 +/- 36.71 ms |
+|          |                     |
+| -------- | ------------------- |
+| Native   | 1004.88 +/- 4.03 ms |
+| Wasmtime | 1976.96 +/- 8.83 ms |
 
 [samples/fib_func.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/fib_func.rs
 
@@ -60,8 +60,8 @@ Source file: [samples/fib_loop.rs]
 
 |          |                   |
 | -------- | ----------------- |
-| Native   | 4.93 +/- 42.52 ms |
-| Wasmtime | 38.02 +/- 3.32 ms |
+| Native   | 0.44 +/- 0.03 ms  |
+| Wasmtime | 13.88 +/- 0.62 ms |
 
 [samples/fib_loop.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/fib_loop.rs
 
@@ -70,10 +70,10 @@ Adapted from [The Computer Language Benchmarks Game].
 
 Source file: [samples/mandelbrot.rs]
 
-|          |                       |
-| -------- | --------------------- |
-| Native   | 7583.67 +/- 367.85 ms |
-| Wasmtime | 38.02 +/- 3.32 ms     |
+|          |                      |
+| -------- | -------------------- |
+| Native   | 5891.91 +/- 14.53 ms |
+| Wasmtime | 9217.38 +/- 28.94 ms |
 
 [The Computer Language Benchmarks Game]: https://benchmarksgame-team.pages.debian.net/benchmarksgame/program/mandelbrot-rust-6.html
 [samples/mandelbrot.rs]: https://github.com/kubkon/wasmtime-bench/tree/master/samples/mandelbrot.rs
